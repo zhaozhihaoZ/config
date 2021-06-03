@@ -1,0 +1,38 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+#        - id: gateway-csdn
+#          uri: https://blog.csdn.net
+#          predicates:
+#            - Path=/huanzi833
+#            - After=2021-06-03T00:00:00+08:00[Asia/Shanghai]
+#            - Before=2020-04-10T00:00:00+08:00[Asia/Shanghai]
+#            - Between=2020-04-09T00:00:00+08:00[Asia/Shanghai], 2021-04-11T00:00:00+08:00[Asia/Shanghai]
+#            - Cookie=username, xiaoZhao
+#            - Header=request-id, \d+
+#            - Host=**.csdn.net
+#            - Method=GET
+#            - RemoteAddr=localhost
+        - id: gateway-userservice
+          uri: http://localhost:8002
+          predicates:
+            - Path=/product/info   ,  /user/show  ,  /user/login/{segment}   ,  /user/promotion
+            - Query=promotionMessage
+    enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://xiaoZhao:123456@localhost:8001/eureka , http://xiaoZhao:123456@localhost:8005/eureka
+  instance:
+    lease-expiration-duration-in-seconds: 3
+    lease-renewal-interval-in-seconds: 3
