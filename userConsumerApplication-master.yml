@@ -1,0 +1,13 @@
+server:
+  port: 8003
+
+spring:
+  application:
+    name: userConsumer
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://xiaoZhao:123456@localhost:8001/ , http://xiaoZhao:123456@localhost:8005/eureka
+feign:
+  hystrix:
